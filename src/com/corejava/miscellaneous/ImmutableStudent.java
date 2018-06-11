@@ -14,6 +14,22 @@ import java.util.Iterator;
  * Initialize all the fields via a constructor performing deep copy.
  * Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
  * 
+ * @Advantages
+ * 1. Immutable objects are thread-safe so you will not have any synchronization issues.
+ * 2. Immutable objects are good Map keys and Set elements, since these typically do not change once created.
+ * 3. Immutability makes it easier to parallelize your program as there are no conflicts among objects.
+ * 4. References to immutable objects can be cached as they are not going to change.
+ * 
+ * @Example
+ * String & all Wrapper class are example of immutable classes in java
+    Character
+    Byte
+    Short
+    Integer 
+    Long
+    Double
+    Boolean
+     
  * @author Ashutosh
  *
  ***/
