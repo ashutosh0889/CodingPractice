@@ -1,7 +1,9 @@
 package com.ds.sorting;
 
 /**
- *
+ *  Time complexity of Merge Sort is O(nLogn) in all 3 cases (worst, average and best)
+    Auxiliary Space: O(n)
+    Algorithmic Paradigm: Divide and Conquer
  * @author Ashutosh
  */
 public class MergeSort {

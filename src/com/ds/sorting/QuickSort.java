@@ -1,7 +1,9 @@
 package com.ds.sorting;
 
 /**
- *
+Worst case Time complexity of QuickSort is O(n2) and is O(nLogn) in average and best case.
+Auxiliary Space: O(n)
+Algorithmic Paradigm: Divide and Conquer
  * @author Ashutosh
  */
 public class QuickSort {
