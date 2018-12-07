@@ -1,4 +1,4 @@
-package com.corejava.Thread;
+package com.corejava.thread;
 
 /**
  *
