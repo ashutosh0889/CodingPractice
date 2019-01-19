@@ -7,17 +7,19 @@ import com.ds.tree.Tree;
  *
  * @author ashutosh
  */
-public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>{
+public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
+
     Node<T> root;
+
     @Override
     public void insertNode(T data) {
-        if(root == null){
+        if (root == null) {
             root = new Node<T>(data);
-        }else{
+        } else {
             insert(data, root);
         }
     }
-    
+
     @Override
     public void deleteNode(T data) {
         root = delete(root, data);
@@ -25,82 +27,93 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>{
 
     @Override
     public void travesal() {
-        if(root != null)
-            //BTreePrinter.printNode(root);
+        if (root != null) //BTreePrinter.printNode(root);
+        {
             inorderTraversal(root);
+        }
     }
-    
+
     @Override
     public T getMaxValue() {
-        if(root == null) return null;
-        
+        if (root == null) {
+            return null;
+        }
+
         return getMax(root);
     }
 
     @Override
     public T getMinValue() {
-        if(root == null) return null;
-        
+        if (root == null) {
+            return null;
+        }
+
         return getMin(root);
     }
 
     private void inorderTraversal(Node<T> root) {
-        if(root.getLeftChild() != null)
+        if (root.getLeftChild() != null) {
             inorderTraversal(root.getLeftChild());
-        System.out.print(root.getData()+"-->");
+        }
+        System.out.print(root.getData() + "-->");
 
-        if(root.getRightChild() != null)
+        if (root.getRightChild() != null) {
             inorderTraversal(root.getRightChild());
-        
+        }
+
     }
 
     private T getMax(Node<T> root) {
-        if(root.getRightChild() != null)
-          return  getMax(root.getRightChild());
+        if (root.getRightChild() != null) {
+            return getMax(root.getRightChild());
+        }
         return root.getData();
     }
 
     private T getMin(Node<T> root) {
-        if(root.getLeftChild() != null)
+        if (root.getLeftChild() != null) {
             return getMin(root.getLeftChild());
+        }
         return root.getData();
     }
-    
-    public void insert(T data,Node<T> root) {
-        if(data.compareTo(root.getData()) < 0){
-            if(root.getLeftChild() != null){
-                insert(data, root.getLeftChild());
-            }else{
-                root.setLeftChild(new Node<T>(data));
+
+    public void insert(T data, Node<T> node) {
+        if (data.compareTo(node.getData()) < 0) {
+            if (node.getLeftChild() != null) {
+                insert(data, node.getLeftChild());
+            } else {
+                node.setLeftChild(new Node<T>(data));
             }
-        }else{
-            if(root.getRightChild()!= null){
-                insert(data, root.getRightChild());
-            }else{
-                root.setRightChild(new Node<T>(data));
+        } else {
+            if (node.getRightChild() != null) {
+                insert(data, node.getRightChild());
+            } else {
+                node.setRightChild(new Node<T>(data));
             }
         }
     }
-    
+
     private Node<T> delete(Node<T> node, T data) {
-        if(node == null) return null;
-        
-        if(data.compareTo(node.getData()) < 0){
-            node.setLeftChild(delete(node.getLeftChild(),data));
-        }else if(data.compareTo(node.getData()) > 0){
-            node.setRightChild(delete(node.getRightChild(),data));
-        }else{
-            if(node.getLeftChild() == null && node.getRightChild() == null){
+        if (node == null) {
+            return null;
+        }
+
+        if (data.compareTo(node.getData()) < 0) {
+            node.setLeftChild(delete(node.getLeftChild(), data));
+        } else if (data.compareTo(node.getData()) > 0) {
+            node.setRightChild(delete(node.getRightChild(), data));
+        } else {
+            if (node.getLeftChild() == null && node.getRightChild() == null) {
                 System.out.println("\nRemoving leaf node...");
                 return null;
             }
-            if(node.getLeftChild() == null){
+            if (node.getLeftChild() == null) {
                 System.out.println("\nRemoving node having right child...");
                 Node<T> tempNode = node.getRightChild();
                 node = null;
                 return tempNode;
             }
-            if(node.getRightChild() == null){
+            if (node.getRightChild() == null) {
                 System.out.println("\nRemoving node having left child...");
                 Node<T> tempNode = node.getLeftChild();
                 node = null;
@@ -109,21 +122,22 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>{
             System.out.println("\nRemoving node having two child...");
             Node<T> tempNode = predecessor(node.getLeftChild());
             node.setData(tempNode.getData());
-            node.setLeftChild(delete(node.getLeftChild(), tempNode.getData())) ;
+            node.setLeftChild(delete(node.getLeftChild(), tempNode.getData()));
         }
         return node;
     }
 
     private Node<T> predecessor(Node<T> node) {
-        if(node.getRightChild()!=null)
+        if (node.getRightChild() != null) {
             predecessor(node.getRightChild());
+        }
         return node;
     }
-    
+
 }
 
+class BinarySearchTreeImpl {
 
-class BinarySearchTreeImpl{
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
         bst.insertNode(1);
@@ -132,10 +146,10 @@ class BinarySearchTreeImpl{
         bst.insertNode(32);
         bst.insertNode(55);
         bst.insertNode(78);
-        
+
         bst.travesal();
-        System.out.println("\nMax Value in the tree is "+bst.getMaxValue());
-        System.out.print("Min Value in the tree is "+bst.getMinValue());
+        System.out.println("\nMax Value in the tree is " + bst.getMaxValue());
+        System.out.print("Min Value in the tree is " + bst.getMinValue());
         bst.deleteNode(32);
         bst.travesal();
         bst.deleteNode(-2);
