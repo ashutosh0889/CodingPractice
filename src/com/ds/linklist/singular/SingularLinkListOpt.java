@@ -6,7 +6,7 @@ import java.util.HashSet;
  *
  * @author ashutosh
  */
-public class SingularLinkListOpt<T> {
+public class SingularLinkListOpt<T extends Comparable<T>> {
     Node root;
 
     public void insert(T data) {
@@ -113,8 +113,7 @@ public class SingularLinkListOpt<T> {
     /***
      * if the linked list is 1->2->3->4->5->6 then the function should change it to 2->1->4->3->6->5.
      */
-    void pairWiseSwap() 
-    { 
+    void pairWiseSwap() { 
         Node current = root; 
   
         /* Traverse only till there are atleast 2 nodes left */
@@ -142,6 +141,74 @@ public class SingularLinkListOpt<T> {
         prev.next = temp;
         
     }
+    
+    //Merge two sorted linked lists
+    public Node mergeLists(Node headA, Node headB){
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        while(true){
+            if(headA == null){
+                tail.next = headB;
+                break;
+            }
+            if(headB == null){
+                tail.next = headA;
+                break;
+            }
+            if(((T)headA.data).compareTo((T)headB.data) < 0){
+                tail.next = headA;
+                headA = headA.next;
+            }else{
+                tail.next = headB;
+                headB = headB.next;
+            }
+            tail = tail.next;
+        }
+    return dummy.next;
+    }
+    
+    private int sizeRec(Node head) {
+        if (head == null) {
+            return 0;
+        } else {
+            return sizeRec(head.next) + 1;
+        }
+
+    }
+    
+    //Intersection point of two sorted linked lists
+    public T getInterSectionPoint(Node headA, Node headB){
+        int c1 = this.sizeRec(headA);
+        int c2 = this.sizeRec(headB);
+        if(c1 > c2){
+            int d = c1 - c2;
+            return getInterSectionPoint(d,headA,headB);
+        }else{
+            int d = c2 - c1;
+            return getInterSectionPoint(d,headA,headB);
+        }
+    }
+    
+     private T getInterSectionPoint(int d,Node headA, Node headB){
+         Node temp1 = headA;
+         Node temp2 = headB;
+         
+         for (int i = 0; i < d; i++) { 
+            if (temp1 == null) { 
+                return null; 
+            } 
+            temp1 = temp1.next; 
+        } 
+         while(temp1 != null && temp2 != null){
+             if(((T)temp1.data).compareTo((T)temp2.data) == 0){
+                 return (T) temp1.data;
+             }else{
+                 temp1 = temp1.next;
+                 temp2 = temp2.next;
+             }
+         }
+     return null;
+     }
 }
 
 
@@ -186,5 +253,25 @@ class TestSingularLinkListOpt {
         System.out.println("Swaping last element to front");
         s2.moveToFront();
         s2.printList();
+        
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        SingularLinkListOpt s3 = new SingularLinkListOpt();
+        SingularLinkListOpt s4 = new SingularLinkListOpt();
+        SingularLinkListOpt s5 = new SingularLinkListOpt();
+        
+        s3.insert(1);
+        s3.insert(3);
+        s3.insert(5);
+        s4.insert(2);
+        s4.insert(4);
+        s4.insert(6);
+        System.out.println("Before Merging Lists.");
+        s3.printList();
+        s4.printList();
+        s5.root = s5.mergeLists(s3.root, s4.root);
+        System.out.println("After Merging Lists");
+        s5.printList();
+        
+        System.out.println("Intersection point of these sorted lists "+ s5.getInterSectionPoint(s5.root, s4.root));
     }
 }

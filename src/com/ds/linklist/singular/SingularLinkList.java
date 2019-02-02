@@ -104,13 +104,6 @@ public class SingularLinkList<T> {
                 current = current.next;
                 next = next.next.next;
             }
-            /* fast_ptr would become NULL when there are even elements  
-               in the list and not NULL for odd elements. We need to skip   
-               the middle node for odd case and store it somewhere so that 
-               we can restore the original list */
-            if(next != null){
-                return current;
-            }
             return current;
         }
         System.out.println("List is Empty!!");
@@ -155,6 +148,10 @@ public class SingularLinkList<T> {
                 prevofnext = current;
                 current = current.next;
             }
+       /* next would become NULL when there are even elements  
+               in the list and not NULL for odd elements. We need to skip   
+               the middle node for odd case and store it somewhere so that 
+               we can restore the original list */
             if(next != null){
                 middle = current;
                 current = current.next;
@@ -164,8 +161,7 @@ public class SingularLinkList<T> {
             reverse();
             boolean result = compareLists(root, secondHalf); 
             reverse();
-            if (middle != null)  
-            { 
+            if (middle != null) { 
                 // If there was a mid node (odd size case) which                                                          
                 // was not part of either first half or second half. 
                 prevofnext.next = middle; 
@@ -185,6 +181,13 @@ public class SingularLinkList<T> {
         }
         System.out.println("\n");
     }
+    
+    public void reversePrintList(Node head){
+        if(head == null)
+            return;
+        reversePrintList(head.next);
+        System.out.println(head.data);
+    }
 
     private boolean compareLists(Node head1, Node head2) {
         Node temp1=head1;
@@ -203,6 +206,26 @@ public class SingularLinkList<T> {
             return true; 
         return false;
     }
+    
+    public int countNodesinLoop(){
+    Node current = root, next = root;
+    
+    while(next != null && next.next != null){
+        current = current.next;
+        next = next.next.next;
+        if(current.data.equals(next.data))
+            return countNodes(current);
+    }
+    return 0;
+}
+
+    private int countNodes(Node node) {
+        Node temp = node;
+        int count = 0;
+        while(!temp.data.equals(node.data))
+            count++;
+        return count;
+    }
 }
 
 class TestSingularLinkList {
@@ -213,11 +236,11 @@ class TestSingularLinkList {
         s1.insert(10);
         s1.insert(20);
         s1.insert(30);
-        s1.insert(10);
+        s1.insert(60);
         s1.insertAfter(50);
         s1.printList();
 
-        s1.delete(30);
+        s1.delete(60);
         System.out.println("After Deleting 30");
         s1.printList();
 
@@ -230,10 +253,14 @@ class TestSingularLinkList {
         
          s1.insert(60);
         System.out.println("Middle Element of the list is " + s1.middle().data);
-
+        
         s1.reverse();
         System.out.println("Reversed List is ");
         s1.printList();
+        
+//        s1.root.next.next.next.next.next = s1.root.next; 
+//        System.out.println("No of Nodes in Loop " +s1.countNodesinLoop());
+//        s1.printList();
         
         char str[] = {'a', 'b', 'a', 'c', 'a', 'b', 'a'}; 
         for(char c : str){
