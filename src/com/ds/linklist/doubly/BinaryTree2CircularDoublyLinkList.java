@@ -94,8 +94,3 @@ public class BinaryTree2CircularDoublyLinkList {
     }
 }
 
-class Main {
-    // Driver program to test above functions 
-
-   
-}
