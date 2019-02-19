@@ -97,10 +97,13 @@ public class DoublyLinkList<T> {
         }
     }
 
+    /***
+     * Time Complexity: O(n)
+     */
     public void reverse(){
         if(root == null)
             return;
-        Node<T> current = root, prev = null, temp = null;
+        Node<T> current = root, temp = null;
         while(current != null){
             temp = current.prev;
             current.prev = current.next;
