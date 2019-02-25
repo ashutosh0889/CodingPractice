@@ -5,29 +5,46 @@ package com.ds.arrays;
  * @author ashutosh
  */
 public class RotateByNOptimize {
-    static void leftRotate(int arr[], int n, int d){ 
-        /* To get the starting point of  
-        rotated array */
-        int mod = d % n; 
-      
-        // Prints the rotated array from  
-        // start position 
-        for(int i = 0; i < n; ++i) 
-        System.out.print(arr[(i + mod) % n] + " ");  
-          
-        System.out.println(); 
-    } 
-     public static void main (String[] args){ 
-            int arr[] = { 1, 3, 5, 7, 9 }; 
-            int n = arr.length;  
-  
-            int k = 2; 
-            leftRotate(arr, n, k); 
-  
-            k = 3; 
-            leftRotate(arr, n, k); 
-  
-            k = 4; 
-            leftRotate(arr, n, k); 
-    } 
+
+    /**
+     * The Reversal Algorithm Reverse A to get ArB, where Ar is reverse of A.
+     * Reverse B to get ArBr, where Br is reverse of B. Reverse all to get
+     * (ArBr) r = BA.
+     *
+     */
+
+    private void reverse(int[] arr, int start, int end) {
+        int temp = arr[start];
+        for (int i = start; i < end; i++) {
+            arr[i] = arr[i + 1];
+        }
+        arr[end] = temp;
+    }
+
+    public void reversalArr(int[] arr, int d) {
+        int len = arr.length;
+        reverse(arr, 0, d);
+        reverse(arr, d , len-1);
+        reverse(arr, 0, len-1);
+    }
+
+    public void print(int[] arr) {
+        for (int k : arr) {
+            System.out.print("  " + k);
+        }
+        System.out.println("\n");
+    }
+}
+
+class RotateByNOptimizeTest {
+
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 3, 4, 5, 6, 7};
+        RotateByNOptimize rno = new RotateByNOptimize();
+        System.out.println("Before Rotating");
+        rno.print(arr);
+        rno.reversalArr(arr, 2);
+        System.out.println("After Rotating");
+        rno.print(arr);
+    }
 }
