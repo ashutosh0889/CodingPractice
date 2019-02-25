@@ -1,4 +1,4 @@
-package com.ds.arrays;
+package com.ds.arrays.rotation;
 
 import java.util.HashSet;
 import java.util.Set;
