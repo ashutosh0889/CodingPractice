@@ -23,6 +23,7 @@ public class RotateByNOptimize {
 
     public void reversalArr(int[] arr, int d) {
         int len = arr.length;
+        d = d%len;
         reverse(arr, 0, d);
         reverse(arr, d , len-1);
         reverse(arr, 0, len-1);
@@ -43,7 +44,7 @@ class RotateByNOptimizeTest {
         RotateByNOptimize rno = new RotateByNOptimize();
         System.out.println("Before Rotating");
         rno.print(arr);
-        rno.reversalArr(arr, 2);
+        rno.reversalArr(arr, 0);
         System.out.println("After Rotating");
         rno.print(arr);
     }

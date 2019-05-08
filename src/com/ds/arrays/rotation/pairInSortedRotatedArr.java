@@ -4,7 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+Examples::
+
+Input: arr[] = {11, 15, 6, 8, 9, 10}, x = 16
+Output: true
+There is a pair (6, 10) with sum 16
+
+Input: arr[] = {11, 15, 26, 38, 9, 10}, x = 35
+Output: true
+There is a pair (26, 9) with sum 35
+
+Input: arr[] = {11, 15, 26, 38, 9, 10}, x = 45
+Output: false
+There is no pair with sum 45.
  * @author ashutosh
  */
 public class pairInSortedRotatedArr {
