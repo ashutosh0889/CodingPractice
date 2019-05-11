@@ -7,13 +7,13 @@ import java.util.HashSet;
  * @author ashutosh
  */
 public class SingularLinkListOpt<T extends Comparable<T>> {
-    Node root;
+    Node head;
 
     public void insert(T data) {
-        if (root == null) {
-            root = new Node(data);
+        if (head == null) {
+            head = new Node(data);
         } else {
-            Node current = root;
+            Node current = head;
             while (current.next != null) {
                 current = current.next;
             }
@@ -22,7 +22,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
     }
     
     public void printList() {
-        Node current = root;
+        Node current = head;
         while (current != null) {
             System.out.print(current.data + "    ");
             current = current.next;
@@ -32,7 +32,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
     
     //Remove duplicates from a sorted linked list
     public void removeDuplicates(){
-    Node current = root;
+    Node<T> current = head;
     while(current != null){
         Node<T> temp =  current;
         while(current.data.equals(temp.data)){
@@ -42,7 +42,44 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         current = current.next;
     }
     }
-    
+    //
+    public void removeAllDuplicatedNodes(){
+        
+        /* create a dummy node that acts like a fake 
+          head of list pointing to the original head*/
+        Node<T> dummy = new Node(0); 
+  
+        /* dummy node points to the original head*/
+        dummy.next = head; 
+        Node<T> prev = dummy; 
+        Node<T> current = head; 
+  
+        while (current != null) 
+        { 
+            /* Until the current and previous values 
+               are same, keep updating current */
+            while (current.next != null && prev.next.data.equals(current.next.data)) 
+                current = current.next; 
+  
+            /* if current has unique value i.e current 
+                is not updated, Move the prev pointer 
+                to next node*/
+            if (prev.next == current) 
+                prev = prev.next; 
+  
+            /* when current is updated to the last 
+               duplicate value of that segment, make 
+               prev the next of current*/
+            else
+                prev.next = current.next; 
+  
+            current = current.next; 
+        } 
+  
+        /* update original head to the next of dummy 
+           node */
+        head = dummy.next; 
+    }
      /* Function to remove duplicates from a 
        unsorted linked list */
     public void removeDuplicatesUN() { 
@@ -50,7 +87,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         HashSet<T> hs = new HashSet<>(); 
       
         /* Pick elements one by one */
-        Node current = root; 
+        Node current = head; 
         Node prev = null; 
         while (current != null) { 
             T curval = (T) current.data; 
@@ -75,7 +112,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         if (x == y) return; 
   
         // Search for x (keep track of prevX and CurrX) 
-        Node prevX = null, currX = root; 
+        Node prevX = null, currX = head; 
         while (currX != null && !currX.data.equals(x)) 
         { 
             prevX = currX; 
@@ -83,7 +120,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         } 
   
         // Search for y (keep track of prevY and currY) 
-        Node prevY = null, currY = root; 
+        Node prevY = null, currY = head; 
         while (currY != null && !currY.data.equals(y)) 
         { 
             prevY = currY; 
@@ -98,13 +135,13 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         if (prevX != null) 
             prevX.next = currY; 
         else //make y the new head 
-            root = currY; 
+            head = currY; 
   
         // If y is not head of linked list 
         if (prevY != null) 
             prevY.next = currX; 
         else // make x the new head 
-            root = currX; 
+            head = currX; 
   
         // Swap next pointers 
         Node temp = currX.next; 
@@ -115,7 +152,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
      * if the linked list is 1->2->3->4->5->6 then the function should change it to 2->1->4->3->6->5.
      */
     void pairWiseSwap() { 
-        Node current = root; 
+        Node current = head; 
   
         /* Traverse only till there are atleast 2 nodes left */
         while (current != null && current.next != null) { 
@@ -129,23 +166,23 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
     } 
     
     public void moveToFront(){
-        Node current = root, prev=null;
+        Node current = head, prev=null;
         
         while(current.next != null){
             prev = current;
             current = current.next;
         }
-        Node temp = root;
+        Node temp = head;
         prev.next = null;
         current.next = temp;
-        root = current;        
+        head = current;        
     }
     
     private void moveToLast(Node<T> pre,Node<T> current){
         if(pre == null){
-            root = current.next;
+            head = current.next;
             current.next = null;
-            Node<T> temp = root;
+            Node<T> temp = head;
             while(temp.next != null){
                 temp = temp.next;
             }
@@ -163,7 +200,7 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
     
     //Segregate even and odd nodes in a Linked List
     public void segregateList(){
-        Node<T>  current = root, pre=null;
+        Node<T>  current = head, pre=null;
         while(current != null){
             if(!(Integer.parseInt(current.data.toString()) % 2 == 0))
                 moveToLast(pre,current);
@@ -313,10 +350,10 @@ class TestSingularLinkListOpt {
         System.out.println("Before Merging Lists.");
         s3.printList();
         s4.printList();
-        s5.root = s5.sortedMerge(s3.root, s4.root);
+        s5.head = s5.sortedMerge(s3.head, s4.head);
         System.out.println("After Merging Lists");
         s5.printList();
-        System.out.println("Intersection point of these sorted lists "+ s5.getInterSectionPoint(s5.root, s4.root));
+        System.out.println("Intersection point of these sorted lists "+ s5.getInterSectionPoint(s5.head, s4.head));
        // s5.segregateList();
         s5.printList();
     }

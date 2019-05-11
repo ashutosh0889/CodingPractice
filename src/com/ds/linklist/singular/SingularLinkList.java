@@ -8,13 +8,13 @@ import jdk.nashorn.internal.objects.NativeArray;
  */
 public class SingularLinkList<T> {
 
-    Node root;
+    Node head;
 
     public void insert(T data) {
-        if (root == null) {
-            root = new Node(data);
+        if (head == null) {
+            head = new Node(data);
         } else {
-            Node current = root;
+            Node current = head;
             while (current.next != null) {
                 current = current.next;
             }
@@ -25,21 +25,21 @@ public class SingularLinkList<T> {
     public void insertAfter(T data) {
         Node node = new Node(data);
 
-        if (root == null) {
-            root = node;
+        if (head == null) {
+            head = node;
         } else {
-            node.next = root;
-            root = node;
+            node.next = head;
+            head = node;
         }
     }
 
     public void delete(T data) {
-        if (data == null || root == null) {
+        if (data == null || head == null) {
             return;
         } else {
-            Node current = root, prev = null;
+            Node current = head, prev = null;
             if (current != null && current.data.equals(data)) {
-                root = current.next;
+                head = current.next;
             } else {
                 while (current != null && !current.data.equals(data)) {
                     prev = current;
@@ -61,7 +61,7 @@ public class SingularLinkList<T> {
     }
 
     public int size() {
-        return sizeRec(root);
+        return sizeRec(head);
     }
 
     private void searchRec(Node head, T data, int i) {
@@ -77,11 +77,11 @@ public class SingularLinkList<T> {
     }
 
     public void search(T data) {
-        searchRec(root, data, 0);
+        searchRec(head, data, 0);
     }
 
     public Node nthNodeFormLast(int i) {
-        Node current = root, next = root;
+        Node current = head, next = head;
         if (this.size() >= i) {
             for (int k = 0; k < i; k++) {
                 next = next.next;
@@ -98,8 +98,8 @@ public class SingularLinkList<T> {
     }
 
     public Node middle() {
-        if (root != null) {
-            Node current = root, next = root;
+        if (head != null) {
+            Node current = head, next = head;
             while (next != null && next.next != null) {
                 current = current.next;
                 next = next.next.next;
@@ -111,7 +111,7 @@ public class SingularLinkList<T> {
     }
 
     public void reverse() {
-        Node current = root, prev = null, next = null;
+        Node current = head, prev = null, next = null;
 
         while (current != null) {
             next = current.next;
@@ -119,7 +119,7 @@ public class SingularLinkList<T> {
             prev = current;
             current = next;
         }
-        root = prev;
+        head = prev;
     }
 
     /**
@@ -141,7 +141,7 @@ public class SingularLinkList<T> {
      * half again and attaching it back to the first half
      */
     boolean isPalindrome() {
-        Node current=root, next=root, prevofnext=null,middle=null, secondHalf=null;
+        Node current=head, next=head, prevofnext=null,middle=null, secondHalf=null;
      if(current != null && current.next != null){   
         while (next != null && next.next != null) {
                 next = next.next.next;
@@ -159,7 +159,7 @@ public class SingularLinkList<T> {
             secondHalf = current;
             prevofnext.next = null;
             reverse();
-            boolean result = compareLists(root, secondHalf); 
+            boolean result = compareLists(head, secondHalf); 
             reverse();
             if (middle != null) { 
                 // If there was a mid node (odd size case) which                                                          
@@ -174,7 +174,7 @@ public class SingularLinkList<T> {
     }
 
     public void printList() {
-        Node current = root;
+        Node current = head;
         while (current != null) {
             System.out.print(current.data + "    ");
             current = current.next;
@@ -208,7 +208,7 @@ public class SingularLinkList<T> {
     }
     
     public int countNodesinLoop(){
-    Node current = root, next = root;
+    Node current = head, next = head;
     
     while(next != null && next.next != null){
         current = current.next;
@@ -258,7 +258,7 @@ class TestSingularLinkList {
         System.out.println("Reversed List is ");
         s1.printList();
         
-//        s1.root.next.next.next.next.next = s1.root.next; 
+//        s1.head.next.next.next.next.next = s1.head.next; 
 //        System.out.println("No of Nodes in Loop " +s1.countNodesinLoop());
 //        s1.printList();
         
