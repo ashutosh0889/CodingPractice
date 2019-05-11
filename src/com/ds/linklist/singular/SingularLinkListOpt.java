@@ -33,12 +33,13 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
     //Remove duplicates from a sorted linked list
     public void removeDuplicates(){
     Node current = root;
-    while(current != null && current.next != null){
-        if(current.data.equals(current.next.data)){
-            current.next = current.next.next;
-        }else{
-            current = current.next;
+    while(current != null){
+        Node<T> temp =  current;
+        while(current.data.equals(temp.data)){
+                temp = temp.next;
         }
+        current.next = temp;
+        current = current.next;
     }
     }
     
@@ -135,11 +136,42 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
             current = current.next;
         }
         Node temp = root;
-        root = current;
-        current.next = temp.next;
-        temp.next = null;
-        prev.next = temp;
-        
+        prev.next = null;
+        current.next = temp;
+        root = current;        
+    }
+    
+    private void moveToLast(Node<T> pre,Node<T> current){
+        if(pre == null){
+            root = current.next;
+            current.next = null;
+            Node<T> temp = root;
+            while(temp.next != null){
+                temp = temp.next;
+            }
+            temp.next = current;
+        }else{
+            Node temp = current.next;
+           pre.next = current.next;
+           current.next = null;
+            while(temp.next != null){
+                temp = temp.next;
+            }
+            temp.next = current;
+        }
+    }
+    
+    //Segregate even and odd nodes in a Linked List
+    public void segregateList(){
+        Node<T>  current = root, pre=null;
+        while(current != null){
+            if(!(Integer.parseInt(current.data.toString()) % 2 == 0))
+                moveToLast(pre,current);
+            else{
+                pre = current;
+                current = current.next;
+            }
+        }
     }
     
     //Merge two sorted linked lists
@@ -166,7 +198,20 @@ public class SingularLinkListOpt<T extends Comparable<T>> {
         }
     return dummy.next;
     }
-    
+    //merging two sorted link list using recursion 
+    public Node sortedMerge(Node<T> headA, Node<T> headB) { 
+        if(headA == null) return headB; 
+        if(headB == null) return headA; 
+          
+        if(((T)headA.data).compareTo((T)headB.data) < 0) { 
+            headA.next = sortedMerge(headA.next, headB); 
+            return headA; 
+        } else { 
+            headB.next = sortedMerge(headA, headB.next); 
+            return headB; 
+        } 
+          
+    } 
     private int sizeRec(Node head) {
         if (head == null) {
             return 0;
@@ -268,10 +313,11 @@ class TestSingularLinkListOpt {
         System.out.println("Before Merging Lists.");
         s3.printList();
         s4.printList();
-        s5.root = s5.mergeLists(s3.root, s4.root);
+        s5.root = s5.sortedMerge(s3.root, s4.root);
         System.out.println("After Merging Lists");
         s5.printList();
-        
         System.out.println("Intersection point of these sorted lists "+ s5.getInterSectionPoint(s5.root, s4.root));
+       // s5.segregateList();
+        s5.printList();
     }
 }
