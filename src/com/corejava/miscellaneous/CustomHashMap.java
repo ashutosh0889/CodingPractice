@@ -98,6 +98,20 @@ public class CustomHashMap<K,V> {
             }
         }
     }
+    public K contains(K key){
+        int hash = hash(key);
+        if(table[hash] == null){
+         return null;
+        }else{
+         Entry<K,V> temp = table[hash];
+         while(temp!= null){
+             if(temp.key.equals(key))
+                 return key;
+             temp = temp.next; //return value corresponding to key.
+         }         
+         return null;   //returns null if key is not found.
+        }
+    }
 }
 
 class CustomHashMapTest{
