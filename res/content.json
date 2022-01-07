@@ -53,15 +53,8 @@
     "thumbnail": "https://dl.dropboxusercontent.com/s/i9algc68hr9vpkb/38-8.jpg?dl=0",
     "copyright": "@BerryVerrine",
     "collections": "Anime"
-  },
-  {
-    "name": "Neon Anime Girl",
-    "author": "Berry Verrine",
-    "url": "https://dl.dropboxusercontent.com/s/ggjrfdhdyqgkv4r/1-91.jpg?dl=0",
-    "thumbnail": "https://dl.dropboxusercontent.com/s/ggjrfdhdyqgkv4r/1-91.jpg?dl=0",
-    "copyright": "@BerryVerrine",
-    "collections": "Neon, Illustration, Anime"
-  },
+  }
+  ,
   {
   "name": "Duo",
   "author": "Alterlier",
@@ -246,6 +239,14 @@
     "author": "Berry Verrine",
     "url": "https://dl.dropboxusercontent.com/s/ii8ntzusxwpe6sc/5-75.jpg?dl=0",
     "thumbnail": "https://dl.dropboxusercontent.com/s/ii8ntzusxwpe6sc/5-75.jpg?dl=0",
+    "copyright": "@BerryVerrine",
+    "collections": "Neon, Illustration, Anime"
+  },
+  {
+    "name": "Neon Anime Girl",
+    "author": "Berry Verrine",
+    "url": "https://dl.dropboxusercontent.com/s/ggjrfdhdyqgkv4r/1-91.jpg?dl=0",
+    "thumbnail": "https://dl.dropboxusercontent.com/s/ggjrfdhdyqgkv4r/1-91.jpg?dl=0",
     "copyright": "@BerryVerrine",
     "collections": "Neon, Illustration, Anime"
   },
